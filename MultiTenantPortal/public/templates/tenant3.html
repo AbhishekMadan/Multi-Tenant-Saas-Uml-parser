@@ -1,0 +1,23 @@
+<div class="container upload-view" style="margin-left: -100px;">
+		<div ng-controller="myCtrl" class="col-md-5 col-md-offset-1" style="border-right: 1px solid black;">
+			<img ng-src="{{output}}" width="350" height="350"><br/><br/>
+			<input type="file" file-model="myFile" class="btn btn-info" style= "width:350px;"
+				accept="application/x-zip-compressed" /><br/>
+			<button class="btn btn-primary" ng-click="uploadFile('t3')" style= "width:350px;">upload me</button>
+		</div>
+		<div class="col-sm-12 col-md-4 col-md-offset-1">
+			<p>Select Completion Status: </p>
+			<table>
+				<tr>
+					<td style="width:150px;" ><input type="radio" name="grade" ng-model="status" value="complete"> Complete</td>
+				</tr>
+				<tr>
+					<td><input type="radio" name="grade" ng-model="status" value="not-complete"> Not Complete</td>
+				</tr>
+			</table><br/><br/>
+			<p>Comments: </p>
+			<textarea rows="4" cols="41" ng-model="comments">
+			</textarea>
+			<button class="btn btn-primary" ng-click="submit()" style= "width:350px;">Submit</button>
+		</div>
+</div>
