@@ -3,7 +3,7 @@ var fs = require('fs');
 var unzip = require('unzip');
 var exec = require('child_process').exec;
 var errors = require('errors');
-var dbconn = require('dbconn');
+var dbconn = require('./dbconn');
 
 var all = function(req, res, next) {
     // add details of what is allowed in HTTP request headers to the response headers
@@ -32,7 +32,7 @@ var upload_post = function (req, res) {
 	 var form = new formidable.IncomingForm();
 	    form.parse(req);
 	    form.on('fileBegin', function (name, file){
-	    	console.log(file);
+	    	//console.log(file);
 	    	var dir = './public/uploads/';
 	        if (!fs.existsSync(dir)){
 	        	fs.mkdirSync(dir);
@@ -71,12 +71,11 @@ var upload_post = function (req, res) {
 };
 
 var store_grade = function(req, res) {
-	console.log(req.body);
-	dbconn.persist_grade(req.body, function(err) {
+	dbconn.persistGrade(req.body, function(err) {
 		if (err) {
-			res.send(new errors.errors.Http500Error());
+			res.send(new errors.Http500Error());
 		}
-		//success response
+		res.send({status:"success"});
 	});
 };
 
