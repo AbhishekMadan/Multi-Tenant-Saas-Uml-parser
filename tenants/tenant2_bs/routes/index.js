@@ -75,9 +75,8 @@ var store_grade = function(req, res) {
 	dbconn.persistGrade(req.body, function(err) {
 		if (err) {
 			res.send(new errors.Http500Error());
-		} else {
-			res.sendStatus(200);
 		}
+		res.send({status:"success"});
 	});
 };
 

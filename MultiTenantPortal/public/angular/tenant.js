@@ -1,8 +1,9 @@
 var tenant = angular.module('tenant', [ 'ngRoute']);
 
-var tenant_1_url = "http://localhost:9090";
-var tenant_2_url = "http://localhost:9091";
-var tenant_3_url = "http://localhost:9092";
+var tenant_1_url = "http://ec2-52-40-13-121.us-west-2.compute.amazonaws.com:9090";
+var tenant_2_url = "http://ec2-34-209-0-36.us-west-2.compute.amazonaws.com:9090/bhakti";
+var tenant_3_url = "http://ec2-35-163-208-203.us-west-2.compute.amazonaws.com:9090/huzaifa";
+var tenant_4_url = "http://ec2-54-70-208-139.us-west-2.compute.amazonaws.com:9090/umang";
 
 
 tenant.config(function($routeProvider) {
@@ -15,12 +16,12 @@ tenant.config(function($routeProvider) {
 	}).when("/tenant3", {
 		templateUrl : "/templates/tenant3.html",
 		controller : "tenant3_controller"
+	}).when("/tenant4", {
+		templateUrl : "/templates/tenant4.html",
+		controller : "tenant4_controller"
 	});
 });
 
-/*tenant.controller("tenant", function($scope, $http) {
-	
-});*/
 
 tenant.directive('fileModel', [ '$parse', function($parse) {
 
@@ -70,9 +71,11 @@ tenant.controller('myCtrl', [ '$scope', 'fileUpload',
 					uploadUrl = tenant_1_url;
 				} else if ( dest === 't2' ) {
 					uploadUrl = tenant_2_url;
-				} else {
+				} else if ( dest === 't3' ) {
 					uploadUrl = tenant_3_url;
-				}
+				} else if ( dest === 't4' ) {
+					uploadUrl = tenant_4_url;
+				} 
 				 console.log(uploadUrl);
 				fileUpload.uploadFileToUrl(file, uploadUrl + '/upload', function(data) {
 					$scope.output = uploadUrl+data.path.substring(1);
@@ -81,8 +84,7 @@ tenant.controller('myCtrl', [ '$scope', 'fileUpload',
 } ]);
 
 
-tenant.controller("tenant1_controller", function($scope, $http) {
-	
+tenant.controller("tenant1_controller", function ($scope, $timeout, $http) {
 	$scope.submit = function() {
 		var TenantDetails = {
 				"tenant" : "TenantOne",
@@ -99,17 +101,22 @@ tenant.controller("tenant1_controller", function($scope, $http) {
 				headers: {'Content-Type': 'application/json'},
 				data : TenantDetails
 			}).success(function(data) {
-				if (data.statusCode === 200) {
-					console.log("invalid entry received");
-				} else {
+				if (data.status === 'success') {
 					console.log("record has been inserted");
+					$scope.resultText = "Data successfully Entered!";
+					$scope.show = true;
 				}
+			})
+			.error(function(err){
+				console.log("invalid entry received");
+				$scope.resultText = "Failed to register score!";
+				$scope.show = true;
 			});
 		}
 	}
 });
 
-tenant.controller("tenant2_controller", function($scope, $http) {
+tenant.controller("tenant2_controller", function($scope, $timeout, $http) {
 	$scope.submit = function() {
 		var TenantDetails = {
 				"tenant" : "TenantTwo",
@@ -126,17 +133,22 @@ tenant.controller("tenant2_controller", function($scope, $http) {
 				headers: {'Content-Type': 'application/json'},
 				data : TenantDetails
 			}).success(function(data) {
-				if (data.statusCode === 200) {
-					console.log("invalid entry received");
-				} else {
+				if (data.status === 'success') {
 					console.log("record has been inserted");
+					$scope.resultText = "Data successfully Entered!";
+					$scope.show = true;
 				}
+			})
+			.error(function(err){
+				console.log("invalid entry received");
+				$scope.resultText = "Failed to register score!";
+				$scope.show = true;
 			});
 		}
 	}
 });
 
-tenant.controller("tenant3_controller", function($scope, $http) {
+tenant.controller("tenant3_controller", function($scope, $timeout, $http) {
 	$scope.submit = function() {
 		var TenantDetails = {
 				"tenant" : "TenantThree",
@@ -152,11 +164,48 @@ tenant.controller("tenant3_controller", function($scope, $http) {
 				headers: {'Content-Type': 'application/json'},
 				data : TenantDetails
 			}).success(function(data) {
-				if (data.statusCode === 200) {
-					console.log("invalid entry received");
-				} else {
+				if (data.status === 'success') {
 					console.log("record has been inserted");
+					$scope.resultText = "Data successfully Entered!";
+					$scope.show = true;
 				}
+			})
+			.error(function(err){
+				console.log("invalid entry received");
+				$scope.resultText = "Failed to register score!";
+				$scope.show = true;
+			});
+		}
+	}
+});
+
+tenant.controller("tenant4_controller", function ($scope, $timeout, $http) {
+	$scope.submit = function() {
+		var TenantDetails = {
+				"tenant" : "TenantFour",
+				"grade" : $scope.grade,
+				"comments" : $scope.comments
+		};
+
+		if (!($scope.grade)) {
+			console.log("cant enter empty credentials");
+		} else {
+			$http({
+				method : "POST",
+				url : tenant_4_url + '/grade_submission',
+				headers: {'Content-Type': 'application/json'},
+				data : TenantDetails
+			}).success(function(data) {
+				if (data.status === 'success') {
+					console.log("record has been inserted");
+					$scope.resultText = "Data successfully Entered!";
+					$scope.show = true;
+				}
+			})
+			.error(function(err){
+				console.log("invalid entry received");
+				$scope.resultText = "Failed to register score!";
+				$scope.show = true;
 			});
 		}
 	}

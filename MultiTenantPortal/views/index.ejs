@@ -42,17 +42,22 @@
 				<ul class="sidebar-nav nav">
 					<li class="active">
 						<a href="#tenant1" id="tenant1" class="w3-border-bottom"> 
-							<span>Tenant 1</span>
+							<span>Suchishree</span> <!--Tenant 1 -->
 						</a>
 					</li>
 					<li>
 						<a href="#tenant2" class="w3-border-bottom"> 
-							<span>Tenant 2</span>
+							<span>Bhakti</span> <!--Tenant 2 -->
 						</a>
 					</li>
 					<li>
 						<a href="#tenant3" class="w3-border-bottom"> 
-							<span>Tenant 3</span>
+							<span>Huzaifa</span> <!--Tenant 3 -->
+						</a>
+					</li>
+					<li>
+						<a href="#tenant4" class="w3-border-bottom"> 
+							<span>Umang</span> <!--Tenant 4 -->
 						</a>
 					</li>
 				</ul>
@@ -62,8 +67,13 @@
 		<div ng-view>
 		</div>
 	</div>
+	<div class="spinner-container" id="spinner-container">
+		<div class="spinner"></div>
+		<h2 class="spinner-text">FETCHING RESULT....</h2>
+	</div>
 </body>
 <script src="/scripts/ng-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
 <script src="/scripts/ng-file-upload.min.js"></script>
 <script src="/angular/tenant.js"></script>
+<script src="/scripts/loader.js"></script>
 </html>

@@ -4,9 +4,9 @@ var mysql = require('mysql');
 // Put your mysql configuration settings - user, password, database and port
 function getConnection() {
 	var connection = mysql.createConnection({
-		host : '*',
+		host : 'umlparserdb.cj9r4dz5r92j.ca-central-1.rds.amazonaws.com',
 		user : 'root',
-		password : '*',
+		password : 'abcd1234',
 		database : 'tenantData',
 		port : 3306
 	});
